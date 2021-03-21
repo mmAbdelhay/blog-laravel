@@ -36,8 +36,7 @@ class PostController extends Controller {
         $post->update($request->all());
         return redirect()->route('posts.index');
     }
-    public function destroy(Post $post)
-    {
+    public function destroy(Post $post) {
         $post->delete();
         return redirect()->route('posts.index');
     }
