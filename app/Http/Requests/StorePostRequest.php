@@ -20,18 +20,18 @@ class StorePostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            'title' => ['required','min:3'],
-            'description' => ['required','min:3']
+            'title'         => 'required|min:3|unique:posts,title,'.$this->post,
+            'description'   => 'required|min:10',
+            'user_id'       => 'required|exists:users,id',
         ];
     }
 
     public function messages() {
         return [
-            'title.required' => ['it must be here'],
-            'title.min' => ['min characters']
+            'title.required' => 'it must be here',
+            'title.min' => 'min characters',
         ];
     }
 }
