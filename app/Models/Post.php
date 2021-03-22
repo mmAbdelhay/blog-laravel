@@ -17,12 +17,17 @@ class Post extends Model {
         'title',
         'description',
         'user_id',
+        'slug'
     ];
 
     public function user() //foreign key user_id
     {
         return $this->belongsTo(User::class);
     }
+
+//    public function getRouteKeyName(){
+//        return 'slug';
+//    }
 
     public function sluggable(): array {
         return [

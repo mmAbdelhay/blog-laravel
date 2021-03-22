@@ -6,6 +6,15 @@
     <form method="POST" action="{{route('posts.update', ['post' => $post['id']])}}">
         @csrf
         @method('PUT')
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="form-group">
             <label for="title">Title</label>
             <input type="text" name="title" class="form-control" id="title" aria-describedby="emailHelp" value="{{$post['title']}}">
