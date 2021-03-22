@@ -20,7 +20,7 @@
                 <th scope="row">{{ $post->id }}</th>
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->user->name }}</td>
-                <td>{{ $post->created_at }}</td>
+                <td>{{ $post->created_at->format('Y-m-d') }}</td>
                 <td>
                     <x-button href="{{ route('posts.show', ['post' => $post->id]) }}" class="btn btn-success" title="View" />
                     <x-button href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-secondary" title="Edit" />
