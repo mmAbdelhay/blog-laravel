@@ -26,7 +26,6 @@ class PostController extends Controller {
     }
 
     public function store(StorePostRequest $request){ //service container
-
         Post::create($request->all());
         return redirect()->route('posts.index');
     }
@@ -36,7 +35,7 @@ class PostController extends Controller {
         return view('posts.edit', compact('post', 'users'));
     }
 
-    public function update(Post $post, Request $request){
+    public function update(Post $post, StorePostRequest $request){
         $post->update($request->all());
         return redirect()->route('posts.index');
     }
