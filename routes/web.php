@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use Laravel\Socialite\Facades\Socialite;
@@ -30,14 +32,27 @@ Route::group(['middleware' => ['auth']],function(){
 
 Auth::routes();
 
+Route::get('/auth/redirect/google', function () {
+    return Socialite::driver('google')->redirect();
+});
+
 Route::get('/auth/redirect', function () {
     return Socialite::driver('github')->redirect();
 });
 
+Route::get('/auth/callback/google', function () {
+
+    $user = Socialite::driver('google')->user();
+    $exists = User::where('email','=', $user->email)->firstOrFail();
+    Auth::login($exists, true);
+    return redirect()->route('posts.index');
+});
+
 Route::get('/auth/callback', function () {
-    $user = Socialite::driver('github')->user();
-    //////////////////////////////////////////////////
-    ////
+    $user = Socialite::driver('github')->stateless()->user();
+    $exists = User::where('email', '=', $user->email)->firstOrFail();
+    Auth::login($exists, true);
+    return redirect()->route('posts.index');
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
