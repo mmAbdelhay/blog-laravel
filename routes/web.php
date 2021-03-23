@@ -41,7 +41,6 @@ Route::get('/auth/redirect', function () {
 });
 
 Route::get('/auth/callback/google', function () {
-
     $user = Socialite::driver('google')->user();
     $exists = User::where('email','=', $user->email)->firstOrFail();
     Auth::login($exists, true);
